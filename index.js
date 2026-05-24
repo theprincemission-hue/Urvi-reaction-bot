@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 
-console.log("🚀 Multi Panel Reaction Bot Started");
+console.log("Multi Panel Reaction Bot Started");
 
 // =========================
 // BOT CONFIG
@@ -100,10 +100,10 @@ async function sendOrder(panel, link, quantity) {
 
   try {
 
-    console.log(🚀 Sending Order);
-    console.log(📦 Panel: ${panel.name});
-    console.log(🔗 Link: ${link});
-    console.log(📊 Quantity: ${quantity});
+    console.log("Sending Order");
+    console.log(`Panel: ${panel.name}`);
+    console.log(`Link: ${link}`);
+    console.log(`Quantity: ${quantity}`);
 
     const res = await axios.post(panel.url, {
       key: panel.key,
@@ -113,21 +113,21 @@ async function sendOrder(panel, link, quantity) {
       quantity: quantity
     });
 
-    console.log("✅ API RESPONSE:", res.data);
+    console.log("API RESPONSE:", res.data);
 
     if (res.data.order) {
 
-      console.log(✅ SUCCESS ORDER ID: ${res.data.order});
+      console.log(`SUCCESS ORDER ID: ${res.data.order}`);
 
     } else {
 
-      console.log("❌ FAILED");
+      console.log("FAILED");
 
     }
 
   } catch (err) {
 
-    console.log("❌ ERROR:", err.message);
+    console.log("ERROR:", err.message);
 
   }
 
@@ -154,7 +154,7 @@ bot.onText(/\/lower/, async (msg) => {
   CURRENT_MODE = "lower";
 
   bot.sendMessage(msg.chat.id,
-    "✅ LOWER MODE ACTIVATED");
+    "LOWER MODE ACTIVATED");
 });
 
 bot.onText(/\/medium/, async (msg) => {
@@ -164,7 +164,7 @@ bot.onText(/\/medium/, async (msg) => {
   CURRENT_MODE = "medium";
 
   bot.sendMessage(msg.chat.id,
-    "✅ MEDIUM MODE ACTIVATED");
+    "MEDIUM MODE ACTIVATED");
 });
 
 bot.onText(/\/large/, async (msg) => {
@@ -174,7 +174,7 @@ bot.onText(/\/large/, async (msg) => {
   CURRENT_MODE = "large";
 
   bot.sendMessage(msg.chat.id,
-    "✅ LARGE MODE ACTIVATED");
+    "LARGE MODE ACTIVATED");
 });
 
 bot.onText(/\/all/, async (msg) => {
@@ -184,7 +184,7 @@ bot.onText(/\/all/, async (msg) => {
   CURRENT_MODE = "all";
 
   bot.sendMessage(msg.chat.id,
-    "✅ ALL MODE ACTIVATED");
+    "ALL MODE ACTIVATED");
 });
 
 // =========================
@@ -195,15 +195,15 @@ bot.onText(/\/status/, async (msg) => {
 
   if (!isOwner(msg)) return;
 
-  bot.sendMessage(msg.chat.id,
+  bot.sendMessage(
+    msg.chat.id,
 
-🤖 BOT STATUS
+`BOT STATUS
 
-🔥 CURRENT MODE: ${CURRENT_MODE}
+CURRENT MODE: ${CURRENT_MODE}
 
-📢 CHANNELS:
-${CHANNELS.join("\n")}
-
+CHANNELS:
+${CHANNELS.join("\n")}`
   );
 
 });
@@ -228,9 +228,9 @@ bot.on("channel_post", async (msg) => {
 
     // IGNORE UNKNOWN CHANNELS
     if (!CHANNELS.includes(username)) return;
-    
+
     const uniqueKey =
-      ${username}_${msg.message_id};
+      `${username}_${msg.message_id}`;
 
     // DUPLICATE CHECK
     if (processed.has(uniqueKey)) return;
@@ -239,9 +239,9 @@ bot.on("channel_post", async (msg) => {
 
     // CREATE POST LINK
     const link =
-      https://t.me/${username.replace("@", "")}/${msg.message_id};
+      `https://t.me/${username.replace("@", "")}/${msg.message_id}`;
 
-    console.log("📢 NEW POST:", link);
+    console.log("NEW POST:", link);
 
     // =========================
     // LOWER MODE
@@ -352,7 +352,7 @@ bot.on("channel_post", async (msg) => {
 
   } catch (err) {
 
-    console.log("❌ MAIN ERROR:", err.message);
+    console.log("MAIN ERROR:", err.message);
 
   }
 
