@@ -62,7 +62,7 @@ const PANELS = {
     name: "Large Panel",
     url: "https://www.smmbin.com/api/v2",
     key: process.env.API_KEY_LARGE,
-    service: "7330"
+    service: "5673"
   }
 
 };
